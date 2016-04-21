@@ -13,8 +13,12 @@ using System.Xml;
 
 namespace backpropagation
 {
-    // private Image imgTemp;
-    
+
+    /* Handwritten digits
+     * Download input data from (MNIST) http://yann.lecun.com/exdb/mnist/
+     * 
+     * */
+
     public partial class Form1 : Form
     {
         int[,] wMatrix = new int[28 * 28, 28 * 28];
@@ -75,7 +79,7 @@ namespace backpropagation
                 int[] tempData = new int[28 * 28];
                 imageInputData[count] = new double[28*28];
 
-                
+                ///get bit map from input data
                 for (int row = 0; row < 28; row++)
                 {
                     for (int col = 0; col < 28; col++)
@@ -151,14 +155,6 @@ namespace backpropagation
             
 
 /////////////////////////
-
-         
-
-
-
-
-
-
             
         }
 
@@ -185,7 +181,6 @@ namespace backpropagation
             BinaryReader r1 = new BinaryReader(fs1);
 
 
-            //long length = r1.BaseStream.Length;
             for (Int32 i = 0; i < 2; i++)
             {
 
@@ -212,7 +207,7 @@ namespace backpropagation
                 double[] tempData = new double[28 * 28];
                 for (int i = 0; i < 28 * 28; i++)
                 {
-                    data[i] = r.ReadByte();//array[0];
+                    data[i] = r.ReadByte();
                 }
 
                 for (int col = 0; col < 28; col++)
@@ -237,16 +232,7 @@ namespace backpropagation
                 pictureBox3.Image = bitmap;
                 pictureBox3.Refresh();
 
-
-
-
                 int testNumber = Convert.ToInt32(r1.ReadByte());
-
-
-               
-
-               
-
                 int hNodes = Convert.ToInt32(textBox9.Text);
                
                  double[] test = network.sigmoid(tempData);
@@ -299,13 +285,7 @@ namespace backpropagation
             fs.Close();
 
 
-
-
-
-
         }
-
-
 
 
     }
@@ -339,10 +319,6 @@ namespace backpropagation
             output = new double[10 + 1];
 
 
-
-
-
-
             for (int j = 0; j < hNode + 1; j++)
             {
                 weight[j] = new double[28*28+1];
@@ -365,25 +341,7 @@ namespace backpropagation
         }
         public double[] sigmoid(double[] inputData)
         {
-          /*  double[] sum =new double[10];
-            for (int j = 0; j < 10; j++)
-            {
-
-                for (int i = 0; i < 28*28; i++)
-                {
-                    sum[j] = sum[j] + weight[j][i] * inputData[i];
-                }
-                sum[j] = sum[j] + weight[j][28*28] * 1.0;
-
-            }
-            
-            double[] returnValue = new double[10];
-            
-            for(int i=0;i<10;i++){
-                returnValue[i]= 1.0 / (1.0 + Math.Exp(-sum[i]));
-            
-            }
-            return returnValue;*/
+          
 
             input[0] = 1.0;
             hidden[0] = 1.0;
@@ -422,23 +380,7 @@ namespace backpropagation
 
         public void learn(double[] inputData, double[] target)
         {
-            /*double[] output = new double[10];
-            double[] outputError = new double[10];
             
-            for (int i = 0; i < 10; i++)
-            {
-                output=sigmoid(inputData);
-                outputError[i]= output[i] - target[i];
-
-            }
-            
-            for (int j = 0; j < 10; j++) { 
-                for (int i = 0; i < 28*28; i++)
-                {
-                    error[j][i] = error[j][i] + outputError[j] * inputData[i] * output[j] * (1 - output[j]);
-                }
-                error[j][28 * 28] = error[j][28 * 28] + outputError[j] * 1.0 * output[j] * (1 - output[j]);
-            }*/
             double[] error2 = new double[10 + 1];
             double[] error1 = new double[hNode + 1];
             double sum = 0.0;
@@ -468,18 +410,6 @@ namespace backpropagation
         }
 
 
-        
-      /*  public void fix()
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                for (int i = 0; i < weight.Length; i++)
-                {
-                    weight[j][i] = weight[j][i] - senstive * error[j][i];
-                    error[j][i] = 0.0;
-                }
-            }
-        }*/
 
     }
 
